@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moustapha Mbaye | Portfolio</title>
+  <meta name="description" content="Portfolio – SysAdmin, DevOps & Full-Stack." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class' }</script>
+  <style>
+    .glass { backdrop-filter: blur(10px); }
+    .ring-soft { box-shadow: 0 0 0 1px rgba(148,163,184,.45); }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/70 dark:bg-slate-950/60 glass">
+    <nav class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#home" class="font-semibold tracking-tight">
+        <span class="text-slate-900 dark:text-white">Moustapha</span>
+        <span class="text-slate-500 dark:text-slate-400">Mbaye</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#about" data-i18n="nav.about">À propos</a>
+        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#skills" data-i18n="nav.skills">Compétences</a>
+        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#experience" data-i18n="nav.exp">Expérience</a>
+        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#projects" data-i18n="nav.projects">Projets</a>
+        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Language -->
+        <div class="flex items-center rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+          <button id="langFR" class="px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-900">FR</button>
+          <button id="langEN" class="px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-900">EN</button>
+        </div>
+
+        <!-- Theme -->
+        <button id="themeBtn"
+          class="text-sm px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900">
+          🌙 / ☀️
+        </button>
+
+        <!-- Mobile menu -->
+        <button id="menuBtn"
+          class="md:hidden px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900">
+          ☰
+        </button>
+      </div>
+    </nav>
+
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200/70 dark:border-slate-800/70">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-3 text-sm">
+        <a class="text-slate-700 dark:text-slate-200" href="#about" data-i18n="nav.about">À propos</a>
+        <a class="text-slate-700 dark:text-slate-200" href="#skills" data-i18n="nav.skills">Compétences</a>
+        <a class="text-slate-700 dark:text-slate-200" href="#experience" data-i18n="nav.exp">Expérience</a>
+        <a class="text-slate-700 dark:text-slate-200" href="#projects" data-i18n="nav.projects">Projets</a>
+        <a class="text-slate-700 dark:text-slate-200" href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="max-w-6xl mx-auto px-4 pt-14 pb-10">
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
+      <div>
+        <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="hero.subtitle">
+          Dakar • Open to relocation
+        </p>
+
+        <h1 class="mt-2 text-4xl md:text-5xl font-semibold tracking-tight">
+          <span data-i18n="hero.title1">SysAdmin</span> • <span data-i18n="hero.title2">DevOps</span> • <span data-i18n="hero.title3">Full-Stack</span>
+          <br />
+          <span class="text-slate-500 dark:text-slate-300" data-i18n="hero.tagline">
+            Support • Infrastructure • Automation • Delivery
+          </span>
+        </h1>
+
+        <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="hero.desc">
+          IT Manager & ingénieur systèmes/réseaux avec expérience Linux (SUSE), haute disponibilité, DevOps (Docker/K8s/Ansible)
+          et développement d’outils internes (Node.js, Django, React). Objectif : une IT simple, fiable et sécurisée.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#projects"
+             class="px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+             data-i18n="hero.btnProjects">
+            Voir mes projets
+          </a>
+
+          <!-- Mets ton PDF dans le repo et renomme-le "cv.pdf" -->
+          <a id="cvLink" href="cv_fr.pdf"
+             class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
+             data-i18n="hero.btnCV">
+            Télécharger mon CV
+          </a>
+
+          <a href="mailto:moustaphambaye7842@gmail.com"
+             class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
+             data-i18n="hero.btnContact">
+            Me contacter
+          </a>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-2 text-xs">
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Linux / SUSE</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Windows</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Docker</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Kubernetes</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Ansible</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Node.js</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Django</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">React</span>
+        </div>
+      </div>
+
+      <!-- Quick card -->
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6 shadow-sm">
+        <h2 class="font-semibold" data-i18n="card.title">Infos rapides</h2>
+        <dl class="mt-4 grid gap-3 text-sm">
+          <div class="flex justify-between gap-3"><dt class="text-slate-500 dark:text-slate-400" data-i18n="card.email">Email</dt><dd class="text-slate-900 dark:text-white">moustaphambaye7842@gmail.com</dd></div>
+          <div class="flex justify-between gap-3"><dt class="text-slate-500 dark:text-slate-400" data-i18n="card.phone">Téléphone</dt><dd class="text-slate-900 dark:text-white">+221 781 669 659</dd></div>
+          <div class="flex justify-between gap-3"><dt class="text-slate-500 dark:text-slate-400">GitHub</dt><dd class="text-slate-900 dark:text-white">github.com/mombaye</dd></div>
+          <div class="flex justify-between gap-3"><dt class="text-slate-500 dark:text-slate-400">LinkedIn</dt><dd class="text-slate-900 dark:text-white">/moustapha-mbaye-908399245</dd></div>
+        </dl>
+
+        <div class="mt-5 grid grid-cols-2 gap-3">
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
+            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="card.focus1Label">Focus</p>
+            <p class="mt-1 font-semibold" data-i18n="card.focus1">Support & Endpoint</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
+            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="card.focus2Label">Focus</p>
+            <p class="mt-1 font-semibold" data-i18n="card.focus2">Infra & Automation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="max-w-6xl mx-auto px-4 py-10">
+    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
+      <h2 class="text-xl font-semibold" data-i18n="about.title">À propos</h2>
+      <p class="mt-3 text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="about.text">
+        Je construis et maintiens des environnements IT robustes : support utilisateurs, sécurisation réseau,
+        serveurs Linux/Windows, haute disponibilité, observabilité (ELK) et automatisation (Python/Bash).
+        Je développe aussi des outils internes (API, dashboards) pour améliorer la productivité.
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-xl font-semibold" data-i18n="skills.title">Compétences</h2>
+
+    <div class="mt-5 grid md:grid-cols-3 gap-4">
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
+        <h3 class="font-semibold" data-i18n="skills.sysadmin">SysAdmin</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Linux (SUSE/Ubuntu), Windows Server, HA (clustering/replication), VMware ESXi
+        </p>
+      </div>
+
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
+        <h3 class="font-semibold" data-i18n="skills.devops">DevOps</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Docker, Kubernetes, Ansible, Nginx, CI/CD basics, ELK, scripting (Python/Bash)
+        </p>
+      </div>
+
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
+        <h3 class="font-semibold" data-i18n="skills.fullstack">Full-Stack</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Node.js, Django/FastAPI, React, REST APIs, dashboards, exports & reporting
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-xl font-semibold" data-i18n="exp.title">Expérience</h2>
+
+    <div class="mt-5 space-y-4">
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="font-semibold">IT Manager — Camusat Senegal</h3>
+          <span class="text-sm text-slate-500 dark:text-slate-400">Jul 2023 – Present</span>
+        </div>
+        <ul class="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
+          <li data-i18n="exp.c1">Support utilisateurs, gestion du parc (laptops, mobiles, meeting rooms/IT equipment).</li>
+          <li data-i18n="exp.c2">Sécurisation & exploitation (VPN, firewall, segmentation, supervision).</li>
+          <li data-i18n="exp.c3">Digitalisation : outils internes, reporting, automatisations.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="font-semibold">System & Network Administrator — Africa Electronic Services</h3>
+          <span class="text-sm text-slate-500 dark:text-slate-400">Jan 2022 – Jul 2023</span>
+        </div>
+        <ul class="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
+          <li data-i18n="exp.a1">SUSE HA, clustering/replication, DB (PostgreSQL, SAP HANA).</li>
+          <li data-i18n="exp.a2">Tooling DevOps (Docker/K8s/Ansible) + observabilité (ELK).</li>
+          <li data-i18n="exp.a3">Automatisation Python/Bash, amélioration des procédures.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="font-semibold">Intern — Sonatel Group (QoS)</h3>
+          <span class="text-sm text-slate-500 dark:text-slate-400">Apr 2021 – 7 months</span>
+        </div>
+        <ul class="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
+          <li data-i18n="exp.s1">Outil d’automatisation collecte/analyse QoS (parsing, stockage, visualisation).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="max-w-6xl mx-auto px-4 py-10">
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <h2 class="text-xl font-semibold" data-i18n="projects.title">Projets</h2>
+
+      <div class="flex flex-wrap gap-2 text-sm">
+        <button class="projFilter px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
+                data-filter="all" data-i18n="projects.filterAll">Tous</button>
+        <button class="projFilter px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
+                data-filter="sysadmin">SysAdmin</button>
+        <button class="projFilter px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
+                data-filter="devops">DevOps</button>
+        <button class="projFilter px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
+                data-filter="fullstack">Full-Stack</button>
+      </div>
+    </div>
+
+    <div class="mt-5 grid md:grid-cols-3 gap-4">
+      <!-- Card -->
+      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
+               data-tags="fullstack,devops">
+        <h3 class="font-semibold" data-i18n="p.cash.title">Cash Management & Reporting</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.cash.desc">
+          Workflows validation, audit logs, exports comptables, dashboards & KPIs.
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Node.js</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Sequelize</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Reporting</span>
+        </div>
+        <div class="mt-4 flex gap-3 text-sm">
+          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.repo">Repo</a>
+          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.details">Détails</a>
+        </div>
+      </article>
+
+      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
+               data-tags="fullstack,sysadmin">
+        <h3 class="font-semibold" data-i18n="p.inv.title">Inventory & Asset Platform</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.inv.desc">
+          Stock temps réel, mouvements, audit, QR/Barcode, exports, rôles & permissions.
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">React</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Django</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">RBAC</span>
+        </div>
+        <div class="mt-4 flex gap-3 text-sm">
+          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.repo">Repo</a>
+          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.demo">Démo</a>
+        </div>
+      </article>
+
+      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
+               data-tags="sysadmin,devops">
+        <h3 class="font-semibold" data-i18n="p.ha.title">SUSE HA & Ops</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.ha.desc">
+          Clustering, réplication, durcissement, procédures d’exploitation & continuité.
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">SUSE HA</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Linux</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Runbooks</span>
+        </div>
+        <div class="mt-4 flex gap-3 text-sm">
+          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.details">Détails</a>
+        </div>
+      </article>
+
+      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
+               data-tags="devops,fullstack">
+        <h3 class="font-semibold" data-i18n="p.qos.title">QoS Analytics</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.qos.desc">
+          Collecte, parsing multi-formats, stockage & visualisation (observabilité).
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Flask/Django</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Elasticsearch</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Automation</span>
+        </div>
+        <div class="mt-4 flex gap-3 text-sm">
+          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.repo">Repo</a>
+        </div>
+      </article>
+
+      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
+               data-tags="fullstack">
+        <h3 class="font-semibold" data-i18n="p.hr.title">HR / Internal Tools</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.hr.desc">
+          Plateformes internes (RH, workflows, exports) pour gagner du temps et fiabiliser.
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">React</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Django</span>
+        </div>
+        <div class="mt-4 flex gap-3 text-sm">
+          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.details">Détails</a>
+        </div>
+      </article>
+
+      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
+               data-tags="devops,sysadmin">
+        <h3 class="font-semibold" data-i18n="p.sec.title">Network & Security Ops</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.sec.desc">
+          VPN, segmentation VLAN, firewall policies, supervision & bonnes pratiques.
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">VPN</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">VLAN</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Firewall</span>
+        </div>
+        <div class="mt-4 flex gap-3 text-sm">
+          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.details">Détails</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="max-w-6xl mx-auto px-4 py-12">
+    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
+      <h2 class="text-xl font-semibold" data-i18n="contact.title">Contact</h2>
+      <p class="mt-2 text-slate-600 dark:text-slate-300" data-i18n="contact.text">
+        Discutons d’un rôle SysAdmin / DevOps / Support Engineer ou Full-Stack.
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a class="px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+           href="mailto:moustaphambaye7842@gmail.com" data-i18n="contact.emailBtn">Email</a>
+
+        <a class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
+           href="https://linkedin.com/in/moustapha-mbaye-908399245" target="_blank">LinkedIn</a>
+
+        <a class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
+           href="https://github.com/mombaye" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <footer class="py-8 text-center text-xs text-slate-500 dark:text-slate-400">
+      © <span id="year"></span> Moustapha Mbaye — Built with Tailwind
+    </footer>
+  </section>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // theme toggle (persist)
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark') root.classList.add('dark');
+    themeBtn?.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // i18n
+    const i18n = {
+      fr: {
+        "nav.about":"À propos","nav.skills":"Compétences","nav.exp":"Expérience","nav.projects":"Projets","nav.contact":"Contact",
+        "hero.subtitle":"Dakar • Ouvert à la relocation",
+        "hero.title1":"SysAdmin","hero.title2":"DevOps","hero.title3":"Full-Stack",
+        "hero.tagline":"Support • Infrastructure • Automatisation • Delivery",
+        "hero.desc":"IT Manager & ingénieur systèmes/réseaux avec expérience Linux (SUSE), haute disponibilité, DevOps (Docker/K8s/Ansible) et développement d’outils internes (Node.js, Django, React). Objectif : une IT simple, fiable et sécurisée.",
+        "hero.btnProjects":"Voir mes projets","hero.btnCV":"Télécharger mon CV","hero.btnContact":"Me contacter",
+        "card.title":"Infos rapides","card.email":"Email","card.phone":"Téléphone","card.focus1Label":"Focus","card.focus1":"Support & Endpoint","card.focus2Label":"Focus","card.focus2":"Infra & Automation",
+        "about.title":"À propos","about.text":"Je construis et maintiens des environnements IT robustes : support utilisateurs, sécurisation réseau, serveurs Linux/Windows, haute disponibilité, observabilité (ELK) et automatisation (Python/Bash). Je développe aussi des outils internes (API, dashboards) pour améliorer la productivité.",
+        "skills.title":"Compétences","skills.sysadmin":"SysAdmin","skills.devops":"DevOps","skills.fullstack":"Full-Stack",
+        "exp.title":"Expérience",
+        "exp.c1":"Support utilisateurs, gestion du parc (laptops, mobiles, meeting rooms/IT equipment).",
+        "exp.c2":"Sécurisation & exploitation (VPN, firewall, segmentation, supervision).",
+        "exp.c3":"Digitalisation : outils internes, reporting, automatisations.",
+        "exp.a1":"SUSE HA, clustering/replication, DB (PostgreSQL, SAP HANA).",
+        "exp.a2":"Tooling DevOps (Docker/K8s/Ansible) + observabilité (ELK).",
+        "exp.a3":"Automatisation Python/Bash, amélioration des procédures.",
+        "exp.s1":"Outil d’automatisation collecte/analyse QoS (parsing, stockage, visualisation).",
+        "projects.title":"Projets","projects.filterAll":"Tous","projects.repo":"Repo","projects.demo":"Démo","projects.details":"Détails",
+        "p.cash.title":"Cash Management & Reporting","p.cash.desc":"Workflows validation, audit logs, exports comptables, dashboards & KPIs.",
+        "p.inv.title":"Inventory & Asset Platform","p.inv.desc":"Stock temps réel, mouvements, audit, QR/Barcode, exports, rôles & permissions.",
+        "p.ha.title":"SUSE HA & Ops","p.ha.desc":"Clustering, réplication, durcissement, procédures d’exploitation & continuité.",
+        "p.qos.title":"QoS Analytics","p.qos.desc":"Collecte, parsing multi-formats, stockage & visualisation (observabilité).",
+        "p.hr.title":"HR / Internal Tools","p.hr.desc":"Plateformes internes (RH, workflows, exports) pour gagner du temps et fiabiliser.",
+        "p.sec.title":"Network & Security Ops","p.sec.desc":"VPN, segmentation VLAN, firewall policies, supervision & bonnes pratiques.",
+        "contact.title":"Contact","contact.text":"Discutons d’un rôle SysAdmin / DevOps / Support Engineer ou Full-Stack.","contact.emailBtn":"Email"
+      },
+      en: {
+        "nav.about":"About","nav.skills":"Skills","nav.exp":"Experience","nav.projects":"Projects","nav.contact":"Contact",
+        "hero.subtitle":"Dakar • Open to relocation (Sweden)",
+        "hero.title1":"SysAdmin","hero.title2":"DevOps","hero.title3":"Full-Stack",
+        "hero.tagline":"Support • Infrastructure • Automation • Delivery",
+        "hero.desc":"IT Manager and Systems/Network Engineer with Linux (SUSE), High Availability, DevOps (Docker/K8s/Ansible) and internal tools development (Node.js, Django, React). Goal: simple, reliable and secure IT.",
+        "hero.btnProjects":"View projects","hero.btnCV":"Download CV","hero.btnContact":"Contact me",
+        "card.title":"Quick info","card.email":"Email","card.phone":"Phone","card.focus1Label":"Focus","card.focus1":"Support & Endpoint","card.focus2Label":"Focus","card.focus2":"Infra & Automation",
+        "about.title":"About","about.text":"I build and operate robust IT environments: end-user support, network security, Linux/Windows servers, high availability, observability (ELK) and automation (Python/Bash). I also develop internal tools (APIs, dashboards) to boost productivity.",
+        "skills.title":"Skills","skills.sysadmin":"SysAdmin","skills.devops":"DevOps","skills.fullstack":"Full-Stack",
+        "exp.title":"Experience",
+        "exp.c1":"End-user support and device fleet management (laptops, mobiles, meeting rooms/IT equipment).",
+        "exp.c2":"Secure operations (VPN, firewall, segmentation, monitoring).",
+        "exp.c3":"Digitalization: internal tools, reporting, automation.",
+        "exp.a1":"SUSE HA, clustering/replication, databases (PostgreSQL, SAP HANA).",
+        "exp.a2":"DevOps tooling (Docker/K8s/Ansible) + observability (ELK).",
+        "exp.a3":"Python/Bash automation and improved operational procedures.",
+        "exp.s1":"Automated QoS data collection/analysis tool (parsing, storage, visualization).",
+        "projects.title":"Projects","projects.filterAll":"All","projects.repo":"Repo","projects.demo":"Demo","projects.details":"Details",
+        "p.cash.title":"Cash Management & Reporting","p.cash.desc":"Approval workflows, audit logs, accounting exports, dashboards & KPIs.",
+        "p.inv.title":"Inventory & Asset Platform","p.inv.desc":"Real-time stock, movements, audit trail, QR/Barcode, exports, roles & permissions.",
+        "p.ha.title":"SUSE HA & Ops","p.ha.desc":"Clustering, replication, hardening, operational runbooks & continuity.",
+        "p.qos.title":"QoS Analytics","p.qos.desc":"Collection, multi-format parsing, storage & visualization (observability).",
+        "p.hr.title":"HR / Internal Tools","p.hr.desc":"Internal platforms (HR, workflows, exports) to save time and improve reliability.",
+        "p.sec.title":"Network & Security Ops","p.sec.desc":"VPN, VLAN segmentation, firewall policies, monitoring & best practices.",
+        "contact.title":"Contact","contact.text":"Let’s talk about SysAdmin / DevOps / Support Engineer or Full-Stack roles.","contact.emailBtn":"Email"
+      }
+    };
+
+    function applyLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.documentElement.lang = lang === 'fr' ? 'fr' : 'en';
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (key && i18n[lang][key]) el.textContent = i18n[lang][key];
+      });
+      // active state
+      document.getElementById('langFR').classList.toggle('bg-slate-100', lang === 'fr');
+      document.getElementById('langEN').classList.toggle('bg-slate-100', lang === 'en');
+      document.getElementById('langFR').classList.toggle('dark:bg-slate-900', lang === 'fr');
+      document.getElementById('langEN').classList.toggle('dark:bg-slate-900', lang === 'en');
+      // CV link per language
+      const cvLink = document.getElementById('cvLink');
+      if (cvLink) cvLink.setAttribute('href', lang === 'fr' ? 'cv_fr.pdf' : 'cv_en.pdf');
+    }
+
+    const storedLang = localStorage.getItem('lang') || 'fr';
+    applyLang(storedLang);
+
+    document.getElementById('langFR').addEventListener('click', () => applyLang('fr'));
+    document.getElementById('langEN').addEventListener('click', () => applyLang('en'));
+
+    // project filter
+    const filters = document.querySelectorAll('.projFilter');
+    const cards = document.querySelectorAll('.projCard');
+
+    function setFilter(filter) {
+      filters.forEach(b => b.classList.remove('bg-slate-100','dark:bg-slate-900'));
+      filters.forEach(b => { if (b.dataset.filter === filter) b.classList.add('bg-slate-100','dark:bg-slate-900'); });
+
+      cards.forEach(card => {
+        const tags = (card.getAttribute('data-tags') || '').split(',').map(s => s.trim());
+        const show = filter === 'all' || tags.includes(filter);
+        card.classList.toggle('hidden', !show);
+      });
+    }
+
+    filters.forEach(btn => btn.addEventListener('click', () => setFilter(btn.dataset.filter)));
+    setFilter('all');
+  </script>
+</body>
+</html>
