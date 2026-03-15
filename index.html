@@ -1,486 +1,1126 @@
-<!doctype html>
-<html lang="fr" class="scroll-smooth">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Moustapha Mbaye | Portfolio</title>
-  <meta name="description" content="Portfolio – SysAdmin, DevOps & Full-Stack." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config = { darkMode: 'class' }</script>
-  <style>
-    .glass { backdrop-filter: blur(10px); }
-    .ring-soft { box-shadow: 0 0 0 1px rgba(148,163,184,.45); }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Moustapha Mbaye — IT Manager · SysAdmin · DevOps · Full-Stack</title>
+<meta name="description" content="IT Manager & systems engineer specializing in Linux, DevOps, and full-stack development. Based in Dakar, open to relocation."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:       #0a0f0d;
+  --bg2:      #0f1812;
+  --bg3:      #131f18;
+  --surface:  #172318;
+  --border:   rgba(29,158,117,.15);
+  --border2:  rgba(29,158,117,.3);
+  --teal:     #1D9E75;
+  --teal2:    #0F6E56;
+  --teal3:    #9FE1CB;
+  --dim:      #5a7a6e;
+  --muted:    #8aaa99;
+  --text:     #dceee7;
+  --heading:  #f0faf5;
+  --mono:     'DM Mono', monospace;
+  --sans:     'DM Sans', sans-serif;
+  --display:  'Syne', sans-serif;
+  --radius:   10px;
+  --transition: .3s cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--teal2); border-radius: 2px; }
+
+/* ── SELECTION ── */
+::selection { background: var(--teal2); color: #fff; }
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: .4;
+}
+
+/* ── GRID LINES ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(29,158,117,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29,158,117,.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ── GLOW BLOB ── */
+.glow-blob {
+  position: fixed;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(15,110,86,.12) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+  transition: transform 2s ease;
+}
+#blob1 { top: -200px; left: -100px; }
+#blob2 { bottom: -200px; right: -100px; background: radial-gradient(circle, rgba(29,158,117,.08) 0%, transparent 70%); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  height: 64px;
+  background: rgba(10,15,13,.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: .85rem;
+  color: var(--teal);
+  letter-spacing: .05em;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--muted); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: .82rem;
+  font-family: var(--mono);
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .08em;
+  transition: color var(--transition);
+  text-transform: uppercase;
+}
+.nav-links a:hover { color: var(--teal3); }
+.nav-cta {
+  font-size: .8rem; font-family: var(--mono);
+  padding: .4rem 1.1rem;
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--teal);
+  text-decoration: none;
+  transition: var(--transition);
+  letter-spacing: .06em;
+}
+.nav-cta:hover { background: var(--teal2); color: #fff; border-color: var(--teal2); }
+
+/* Hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { width: 22px; height: 1.5px; background: var(--muted); border-radius: 1px; transition: var(--transition); }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--teal); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--teal); }
+
+/* ── HERO ── */
+#home {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 64px clamp(1.5rem, 5vw, 4rem) 0;
+}
+.hero-inner {
+  max-width: 900px;
+  padding: 6rem 0 4rem;
+}
+.hero-label {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--mono); font-size: .78rem;
+  color: var(--teal); letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp .6s .2s forwards;
+}
+.hero-label::before {
+  content: '';
+  width: 28px; height: 1px; background: var(--teal);
+}
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1.0;
+  color: var(--heading);
+  letter-spacing: -.02em;
+  margin-bottom: .5rem;
+  opacity: 0; animation: fadeUp .7s .35s forwards;
+}
+.hero-name .accent { color: var(--teal); }
+.hero-tagline {
+  font-family: var(--mono);
+  font-size: clamp(.85rem, 2vw, 1.1rem);
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+  opacity: 0; animation: fadeUp .7s .5s forwards;
+  letter-spacing: .04em;
+}
+.hero-tagline .sep { color: var(--teal2); margin: 0 .5em; }
+.hero-desc {
+  font-size: 1.05rem; font-weight: 300;
+  color: var(--text); line-height: 1.8;
+  max-width: 560px;
+  margin-bottom: 2.5rem;
+  opacity: 0; animation: fadeUp .7s .65s forwards;
+}
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp .7s .8s forwards;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--teal);
+  color: #fff; font-family: var(--mono); font-size: .85rem;
+  padding: .75rem 1.75rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  letter-spacing: .06em;
+  transition: var(--transition);
+  border: 1px solid var(--teal);
+}
+.btn-primary:hover { background: var(--teal2); transform: translateY(-2px); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: transparent;
+  color: var(--teal3); font-family: var(--mono); font-size: .85rem;
+  padding: .75rem 1.75rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  letter-spacing: .06em;
+  border: 1px solid var(--border2);
+  transition: var(--transition);
+}
+.btn-secondary:hover { background: var(--surface); border-color: var(--teal); transform: translateY(-2px); }
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: clamp(1.5rem, 5vw, 4rem);
+  display: flex; align-items: center; gap: .75rem;
+  font-family: var(--mono); font-size: .72rem;
+  color: var(--dim); letter-spacing: .1em; text-transform: uppercase;
+  opacity: 0; animation: fadeUp .7s 1.2s forwards;
+}
+.hero-scroll::after {
+  content: '';
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--teal), transparent);
+}
+/* Floating tech pills */
+.hero-pills {
+  position: absolute; right: clamp(1rem, 5vw, 6rem); top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: .75rem;
+  opacity: 0; animation: fadeLeft .8s .9s forwards;
+}
+.pill {
+  font-family: var(--mono); font-size: .72rem;
+  padding: .4rem .9rem;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  color: var(--muted);
+  background: rgba(15,24,18,.6);
+  backdrop-filter: blur(8px);
+  transition: var(--transition);
+  cursor: default;
+  white-space: nowrap;
+}
+.pill:hover { border-color: var(--teal); color: var(--teal3); background: var(--surface); }
+.pill.active { border-color: var(--teal2); color: var(--teal); }
+
+/* ── SECTION BASE ── */
+section { position: relative; z-index: 1; }
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+}
+.section-pad { padding: 7rem 0; }
+
+.section-label {
+  display: flex; align-items: center; gap: .75rem;
+  font-family: var(--mono); font-size: .75rem;
+  color: var(--teal); letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.section-label::before {
+  content: '';
+  width: 20px; height: 1px; background: var(--teal);
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  margin-bottom: 3.5rem;
+}
+.section-title em { font-style: normal; color: var(--teal); }
+
+/* ── DIVIDER ── */
+.divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(to right, transparent, var(--border2), transparent);
+}
+
+/* ── ABOUT ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.about-text p {
+  font-size: 1.02rem; color: var(--text);
+  margin-bottom: 1.25rem; line-height: 1.85;
+}
+.about-text p strong { color: var(--teal3); font-weight: 500; }
+.about-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  margin-top: 2.5rem;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  transition: var(--transition);
+}
+.stat-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.stat-num {
+  font-family: var(--display);
+  font-size: 2rem; font-weight: 800;
+  color: var(--teal); line-height: 1;
+  margin-bottom: .25rem;
+}
+.stat-label { font-size: .8rem; color: var(--muted); font-family: var(--mono); letter-spacing: .05em; }
+
+.about-focus {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.focus-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.focus-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px; background: var(--teal2);
+  transition: var(--transition);
+}
+.focus-card:hover { border-color: var(--border2); }
+.focus-card:hover::before { background: var(--teal); width: 3px; }
+.focus-icon { font-size: 1.4rem; margin-bottom: .75rem; }
+.focus-title { font-family: var(--display); font-weight: 600; font-size: 1rem; color: var(--heading); margin-bottom: .4rem; }
+.focus-desc { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+/* ── SKILLS ── */
+#skills { background: var(--bg2); }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.skill-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  transition: var(--transition);
+}
+.skill-group:hover { border-color: var(--border2); transform: translateY(-4px); }
+.skill-group-title {
+  font-family: var(--mono); font-size: .75rem;
+  color: var(--teal); letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.skill-group-title::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.skill-item { margin-bottom: 1rem; }
+.skill-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: .35rem; }
+.skill-name { font-size: .88rem; color: var(--text); }
+.skill-pct { font-family: var(--mono); font-size: .72rem; color: var(--teal); }
+.skill-track {
+  height: 3px; background: rgba(29,158,117,.12);
+  border-radius: 2px; overflow: hidden;
+}
+.skill-fill {
+  height: 100%; background: linear-gradient(to right, var(--teal2), var(--teal));
+  border-radius: 2px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .8s cubic-bezier(.4,0,.2,1);
+}
+.skill-fill.animate { transform: scaleX(1); }
+
+/* ── EXPERIENCE ── */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 0; top: 8px;
+  width: 1px; bottom: 0;
+  background: linear-gradient(to bottom, var(--teal), transparent);
+}
+.timeline-item {
+  position: relative; margin-bottom: 3rem;
+  opacity: 0; transform: translateX(-20px);
+  transition: opacity .5s, transform .5s;
+}
+.timeline-item.visible { opacity: 1; transform: translateX(0); }
+.timeline-dot {
+  position: absolute; left: -2rem; top: 6px;
+  width: 9px; height: 9px;
+  background: var(--teal); border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px rgba(29,158,117,.2);
+  transform: translateX(-4px);
+}
+.timeline-period {
+  font-family: var(--mono); font-size: .72rem;
+  color: var(--teal); letter-spacing: .08em;
+  margin-bottom: .4rem;
+}
+.timeline-title {
+  font-family: var(--display); font-weight: 700;
+  font-size: 1.15rem; color: var(--heading);
+  margin-bottom: .2rem;
+}
+.timeline-company {
+  font-size: .88rem; color: var(--muted);
+  margin-bottom: .9rem;
+}
+.timeline-bullets { list-style: none; }
+.timeline-bullets li {
+  font-size: .9rem; color: var(--text);
+  padding: .25rem 0;
+  display: flex; gap: .6rem; align-items: flex-start;
+}
+.timeline-bullets li::before {
+  content: '→'; color: var(--teal); font-size: .8rem;
+  margin-top: 2px; flex-shrink: 0;
+  font-family: var(--mono);
+}
+
+/* ── PROJECTS ── */
+#projects { background: var(--bg2); }
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  transition: var(--transition);
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .5s, transform .5s, border-color var(--transition), box-shadow var(--transition);
+}
+.project-card.visible { opacity: 1; transform: translateY(0); }
+.project-card:hover {
+  border-color: var(--border2);
+  box-shadow: 0 8px 40px rgba(15,110,86,.1);
+}
+.project-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(29,158,117,.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.project-num {
+  font-family: var(--mono); font-size: .72rem;
+  color: var(--dim); letter-spacing: .1em;
+  margin-bottom: .75rem;
+}
+.project-title {
+  font-family: var(--display); font-weight: 700;
+  font-size: 1.05rem; color: var(--heading);
+  margin-bottom: .75rem; line-height: 1.3;
+}
+.project-desc {
+  font-size: .88rem; color: var(--muted);
+  line-height: 1.65; flex: 1; margin-bottom: 1.25rem;
+}
+.project-tags {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+}
+.tag {
+  font-family: var(--mono); font-size: .7rem;
+  padding: .25rem .65rem;
+  background: rgba(29,158,117,.08);
+  border: 1px solid rgba(29,158,117,.2);
+  border-radius: 4px; color: var(--teal3);
+  letter-spacing: .04em;
+  transition: var(--transition);
+}
+.tag:hover { background: rgba(29,158,117,.15); border-color: var(--teal); }
+
+/* featured project */
+.project-card.featured {
+  grid-column: span 2;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+}
+.project-card.featured .project-body { flex: 1; }
+.project-card.featured .project-visual {
+  flex-shrink: 0; width: 200px;
+  display: flex; align-items: center; justify-content: center;
+}
+.project-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-family: var(--mono); font-size: .68rem;
+  color: var(--teal); letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+  background: rgba(29,158,117,.08);
+  border: 1px solid rgba(29,158,117,.2);
+  padding: .2rem .6rem; border-radius: 4px;
+}
+/* QR visual */
+.qr-visual {
+  width: 120px; height: 120px;
+  border: 1.5px solid var(--border2);
+  border-radius: 8px;
+  display: grid; grid-template-columns: repeat(6,1fr); gap: 2px;
+  padding: 8px; background: var(--bg3);
+}
+.qr-visual span {
+  border-radius: 2px;
+  background: var(--teal2);
+  opacity: .7;
+}
+.qr-visual span.w { background: transparent; opacity: 0; }
+
+/* ── CONTACT ── */
+.contact-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: start;
+}
+.contact-text h2 {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--heading); line-height: 1.1;
+  letter-spacing: -.02em; margin-bottom: 1.25rem;
+}
+.contact-text h2 em { font-style: normal; color: var(--teal); }
+.contact-text p { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+.contact-links { display: flex; flex-direction: column; gap: .75rem; }
+.contact-link {
+  display: flex; align-items: center; gap: .85rem;
+  text-decoration: none; transition: var(--transition);
+  group: true;
+}
+.contact-link:hover .contact-link-icon { background: var(--teal2); border-color: var(--teal); }
+.contact-link:hover .contact-link-text { color: var(--teal3); }
+.contact-link-icon {
+  width: 40px; height: 40px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: .7rem; color: var(--teal);
+  flex-shrink: 0; transition: var(--transition);
+}
+.contact-link-text { font-size: .9rem; color: var(--text); transition: var(--transition); }
+.contact-link-sub { font-size: .75rem; color: var(--dim); font-family: var(--mono); }
+
+.contact-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+}
+.form-group { margin-bottom: 1.25rem; }
+.form-group label {
+  display: block; font-family: var(--mono); font-size: .72rem;
+  color: var(--teal); letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.form-group input, .form-group textarea {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: .75rem 1rem;
+  color: var(--text); font-family: var(--sans);
+  font-size: .9rem; outline: none;
+  transition: var(--transition);
+}
+.form-group input:focus, .form-group textarea:focus {
+  border-color: var(--teal2);
+  box-shadow: 0 0 0 3px rgba(29,158,117,.1);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.btn-submit {
+  width: 100%;
+  background: var(--teal);
+  color: #fff; border: none;
+  padding: .875rem;
+  border-radius: 8px;
+  font-family: var(--mono); font-size: .85rem;
+  letter-spacing: .08em; cursor: pointer;
+  transition: var(--transition);
+}
+.btn-submit:hover { background: var(--teal2); transform: translateY(-2px); }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 2rem clamp(1.5rem, 5vw, 4rem);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-left { font-family: var(--mono); font-size: .75rem; color: var(--dim); }
+.footer-left a { color: var(--teal); text-decoration: none; }
+.footer-socials { display: flex; gap: 1rem; }
+.footer-socials a {
+  font-family: var(--mono); font-size: .72rem;
+  color: var(--muted); text-decoration: none;
+  letter-spacing: .06em; text-transform: uppercase;
+  transition: color var(--transition);
+}
+.footer-socials a:hover { color: var(--teal3); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translate(30px, -50%); }
+  to   { opacity: 1; transform: translate(0, -50%); }
+}
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-pills { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .project-card.featured { grid-column: span 1; flex-direction: column; }
+  .project-card.featured .project-visual { display: none; }
+  .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+@media (max-width: 640px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+  .skills-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .hero-name { font-size: clamp(2.5rem, 12vw, 4rem); }
+}
+</style>
 </head>
+<body>
 
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-  <!-- Header -->
-  <header class="sticky top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/70 dark:bg-slate-950/60 glass">
-    <nav class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#home" class="font-semibold tracking-tight">
-        <span class="text-slate-900 dark:text-white">Moustapha</span>
-        <span class="text-slate-500 dark:text-slate-400">Mbaye</span>
-      </a>
+<div class="glow-blob" id="blob1"></div>
+<div class="glow-blob" id="blob2"></div>
 
-      <div class="hidden md:flex items-center gap-6 text-sm">
-        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#about" data-i18n="nav.about">À propos</a>
-        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#skills" data-i18n="nav.skills">Compétences</a>
-        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#experience" data-i18n="nav.exp">Expérience</a>
-        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#projects" data-i18n="nav.projects">Projets</a>
-        <a class="hover:text-slate-900 dark:hover:text-white text-slate-600 dark:text-slate-300" href="#contact" data-i18n="nav.contact">Contact</a>
-      </div>
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">mm<span>.dev</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:moustaphambaye7842@gmail.com" class="nav-cta">hire me</a>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-      <div class="flex items-center gap-2">
-        <!-- Language -->
-        <div class="flex items-center rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-          <button id="langFR" class="px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-900">FR</button>
-          <button id="langEN" class="px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-900">EN</button>
-        </div>
-
-        <!-- Theme -->
-        <button id="themeBtn"
-          class="text-sm px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900">
-          🌙 / ☀️
-        </button>
-
-        <!-- Mobile menu -->
-        <button id="menuBtn"
-          class="md:hidden px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900">
-          ☰
-        </button>
-      </div>
-    </nav>
-
-    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200/70 dark:border-slate-800/70">
-      <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-3 text-sm">
-        <a class="text-slate-700 dark:text-slate-200" href="#about" data-i18n="nav.about">À propos</a>
-        <a class="text-slate-700 dark:text-slate-200" href="#skills" data-i18n="nav.skills">Compétences</a>
-        <a class="text-slate-700 dark:text-slate-200" href="#experience" data-i18n="nav.exp">Expérience</a>
-        <a class="text-slate-700 dark:text-slate-200" href="#projects" data-i18n="nav.projects">Projets</a>
-        <a class="text-slate-700 dark:text-slate-200" href="#contact" data-i18n="nav.contact">Contact</a>
-      </div>
+<!-- HERO -->
+<section id="home">
+  <div class="hero-inner">
+    <div class="hero-label">Available for new opportunities</div>
+    <h1 class="hero-name">Moustapha<br><span class="accent">Mbaye</span></h1>
+    <p class="hero-tagline">
+      IT Manager<span class="sep">/</span>SysAdmin<span class="sep">/</span>DevOps<span class="sep">/</span>Full-Stack
+    </p>
+    <p class="hero-desc">
+      Building reliable, secure, and automated IT environments across multi-site telecom infrastructure.
+      Linux · Docker · React · Django · Based in Dakar — open to relocation.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View projects ↓</a>
+      <a href="cv_fr.pdf" class="btn-secondary" download>Download CV</a>
     </div>
-  </header>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+  <div class="hero-pills">
+    <div class="pill active">Linux / SUSE</div>
+    <div class="pill">Docker · K8s</div>
+    <div class="pill">Ansible</div>
+    <div class="pill">React Native</div>
+    <div class="pill">Django REST</div>
+    <div class="pill">ELK Stack</div>
+    <div class="pill">Python / Bash</div>
+  </div>
+</section>
 
-  <!-- Hero -->
-  <section id="home" class="max-w-6xl mx-auto px-4 pt-14 pb-10">
-    <div class="grid lg:grid-cols-2 gap-8 items-center">
-      <div>
-        <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="hero.subtitle">
-          Dakar • Open to relocation
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about" class="section-pad">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label reveal">About</div>
+        <h2 class="section-title reveal">Building IT that<br><em>just works</em></h2>
+        <p class="reveal">
+          I'm an IT Manager & systems/network engineer with a strong focus on
+          <strong>infrastructure reliability</strong> and <strong>operational automation</strong>.
+          I design and maintain environments that scale — from bare-metal Linux clusters
+          to containerized DevOps pipelines.
         </p>
-
-        <h1 class="mt-2 text-4xl md:text-5xl font-semibold tracking-tight">
-          <span data-i18n="hero.title1">SysAdmin</span> • <span data-i18n="hero.title2">DevOps</span> • <span data-i18n="hero.title3">Full-Stack</span>
-          <br />
-          <span class="text-slate-500 dark:text-slate-300" data-i18n="hero.tagline">
-            Support • Infrastructure • Automation • Delivery
-          </span>
-        </h1>
-
-        <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="hero.desc">
-          IT Manager & ingénieur systèmes/réseaux avec expérience Linux (SUSE), haute disponibilité, DevOps (Docker/K8s/Ansible)
-          et développement d’outils internes (Node.js, Django, React). Objectif : une IT simple, fiable et sécurisée.
+        <p class="reveal">
+          Beyond infrastructure, I build internal tools — full-stack applications
+          that solve real problems: inventory platforms, cash management systems,
+          HR dashboards, and QR-based mobile workflows for field operations.
         </p>
-
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a href="#projects"
-             class="px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
-             data-i18n="hero.btnProjects">
-            Voir mes projets
-          </a>
-
-          <!-- Mets ton PDF dans le repo et renomme-le "cv.pdf" -->
-          <a id="cvLink" href="cv_fr.pdf"
-             class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
-             data-i18n="hero.btnCV">
-            Télécharger mon CV
-          </a>
-
-          <a href="mailto:moustaphambaye7842@gmail.com"
-             class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
-             data-i18n="hero.btnContact">
-            Me contacter
-          </a>
-        </div>
-
-        <div class="mt-6 flex flex-wrap gap-2 text-xs">
-          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Linux / SUSE</span>
-          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Windows</span>
-          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Docker</span>
-          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Kubernetes</span>
-          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Ansible</span>
-          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Node.js</span>
-          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">Django</span>
-          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200">React</span>
-        </div>
-      </div>
-
-      <!-- Quick card -->
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6 shadow-sm">
-        <h2 class="font-semibold" data-i18n="card.title">Infos rapides</h2>
-        <dl class="mt-4 grid gap-3 text-sm">
-          <div class="flex justify-between gap-3"><dt class="text-slate-500 dark:text-slate-400" data-i18n="card.email">Email</dt><dd class="text-slate-900 dark:text-white">moustaphambaye7842@gmail.com</dd></div>
-          <div class="flex justify-between gap-3"><dt class="text-slate-500 dark:text-slate-400" data-i18n="card.phone">Téléphone</dt><dd class="text-slate-900 dark:text-white">+221 781 669 659</dd></div>
-          <div class="flex justify-between gap-3"><dt class="text-slate-500 dark:text-slate-400">GitHub</dt><dd class="text-slate-900 dark:text-white">github.com/mombaye</dd></div>
-          <div class="flex justify-between gap-3"><dt class="text-slate-500 dark:text-slate-400">LinkedIn</dt><dd class="text-slate-900 dark:text-white">/moustapha-mbaye-908399245</dd></div>
-        </dl>
-
-        <div class="mt-5 grid grid-cols-2 gap-3">
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
-            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="card.focus1Label">Focus</p>
-            <p class="mt-1 font-semibold" data-i18n="card.focus1">Support & Endpoint</p>
+        <div class="about-stats reveal">
+          <div class="stat-card">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Years experience</div>
           </div>
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
-            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="card.focus2Label">Focus</p>
-            <p class="mt-1 font-semibold" data-i18n="card.focus2">Infra & Automation</p>
+          <div class="stat-card">
+            <div class="stat-num">6+</div>
+            <div class="stat-label">Projects shipped</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Languages</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Incidents resolved</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="max-w-6xl mx-auto px-4 py-10">
-    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
-      <h2 class="text-xl font-semibold" data-i18n="about.title">À propos</h2>
-      <p class="mt-3 text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="about.text">
-        Je construis et maintiens des environnements IT robustes : support utilisateurs, sécurisation réseau,
-        serveurs Linux/Windows, haute disponibilité, observabilité (ELK) et automatisation (Python/Bash).
-        Je développe aussi des outils internes (API, dashboards) pour améliorer la productivité.
-      </p>
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills" class="max-w-6xl mx-auto px-4 py-10">
-    <h2 class="text-xl font-semibold" data-i18n="skills.title">Compétences</h2>
-
-    <div class="mt-5 grid md:grid-cols-3 gap-4">
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
-        <h3 class="font-semibold" data-i18n="skills.sysadmin">SysAdmin</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
-          Linux (SUSE/Ubuntu), Windows Server, HA (clustering/replication), VMware ESXi
-        </p>
-      </div>
-
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
-        <h3 class="font-semibold" data-i18n="skills.devops">DevOps</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
-          Docker, Kubernetes, Ansible, Nginx, CI/CD basics, ELK, scripting (Python/Bash)
-        </p>
-      </div>
-
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
-        <h3 class="font-semibold" data-i18n="skills.fullstack">Full-Stack</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
-          Node.js, Django/FastAPI, React, REST APIs, dashboards, exports & reporting
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience -->
-  <section id="experience" class="max-w-6xl mx-auto px-4 py-10">
-    <h2 class="text-xl font-semibold" data-i18n="exp.title">Expérience</h2>
-
-    <div class="mt-5 space-y-4">
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <h3 class="font-semibold">IT Manager — Camusat Senegal</h3>
-          <span class="text-sm text-slate-500 dark:text-slate-400">Jul 2023 – Present</span>
+      <div class="about-focus reveal">
+        <div class="focus-card">
+          <div class="focus-icon">⚙</div>
+          <div class="focus-title">Infrastructure & SysAdmin</div>
+          <div class="focus-desc">Linux (SUSE/Ubuntu), Windows Server, VMware ESXi, HA clustering, network security (VPN, VLAN, firewall).</div>
         </div>
-        <ul class="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
-          <li data-i18n="exp.c1">Support utilisateurs, gestion du parc (laptops, mobiles, meeting rooms/IT equipment).</li>
-          <li data-i18n="exp.c2">Sécurisation & exploitation (VPN, firewall, segmentation, supervision).</li>
-          <li data-i18n="exp.c3">Digitalisation : outils internes, reporting, automatisations.</li>
+        <div class="focus-card">
+          <div class="focus-icon">⬡</div>
+          <div class="focus-title">DevOps & Automation</div>
+          <div class="focus-desc">Docker, Kubernetes, Ansible, ELK stack, CI/CD pipelines, Python & Bash scripting for ops automation.</div>
+        </div>
+        <div class="focus-card">
+          <div class="focus-icon">◈</div>
+          <div class="focus-title">Full-Stack Development</div>
+          <div class="focus-desc">Node.js, Django/FastAPI backends, React & React Native frontends, REST APIs, dashboards & reporting tools.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills" class="section-pad">
+  <div class="container">
+    <div class="section-label reveal">Technical skills</div>
+    <h2 class="section-title reveal">What I work<br><em>with</em></h2>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">SysAdmin</div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">Linux (SUSE / Ubuntu)</span><span class="skill-pct">90%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">Windows Server</span><span class="skill-pct">75%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".75"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">VMware ESXi</span><span class="skill-pct">70%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".70"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">HA & Clustering</span><span class="skill-pct">80%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".80"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">Network Security</span><span class="skill-pct">82%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".82"></div></div>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">DevOps</div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">Docker / Kubernetes</span><span class="skill-pct">82%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".82"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">Ansible</span><span class="skill-pct">75%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".75"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">ELK Stack</span><span class="skill-pct">72%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".72"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">Python / Bash</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">CI/CD & Nginx</span><span class="skill-pct">65%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".65"></div></div>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Full-Stack</div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">Django / FastAPI</span><span class="skill-pct">80%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".80"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">Node.js / Express</span><span class="skill-pct">78%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".78"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">React / TypeScript</span><span class="skill-pct">75%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".75"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">React Native</span><span class="skill-pct">72%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".72"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-head"><span class="skill-name">REST APIs & PostgreSQL</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w=".85"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section-pad">
+  <div class="container">
+    <div class="section-label reveal">Career</div>
+    <h2 class="section-title reveal">Work<br><em>experience</em></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Jul 2023 — Present</div>
+        <div class="timeline-title">IT Manager</div>
+        <div class="timeline-company">Camusat Senegal · Dakar</div>
+        <ul class="timeline-bullets">
+          <li>End-user support & full IT asset management (laptops, mobiles, meeting rooms, field equipment)</li>
+          <li>Network security: VPN, firewall policies, VLAN segmentation, monitoring & supervision</li>
+          <li>Digitalization: built internal tools for HR, fuel tracking, reporting & workflow automation</li>
+          <li>Developed Inventory & Asset Platform — web + mobile (React Native) with QR scan workflows</li>
         </ul>
       </div>
-
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <h3 class="font-semibold">System & Network Administrator — Africa Electronic Services</h3>
-          <span class="text-sm text-slate-500 dark:text-slate-400">Jan 2022 – Jul 2023</span>
-        </div>
-        <ul class="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
-          <li data-i18n="exp.a1">SUSE HA, clustering/replication, DB (PostgreSQL, SAP HANA).</li>
-          <li data-i18n="exp.a2">Tooling DevOps (Docker/K8s/Ansible) + observabilité (ELK).</li>
-          <li data-i18n="exp.a3">Automatisation Python/Bash, amélioration des procédures.</li>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Jan 2022 — Jul 2023</div>
+        <div class="timeline-title">System & Network Administrator</div>
+        <div class="timeline-company">Africa Electronic Services · Dakar</div>
+        <ul class="timeline-bullets">
+          <li>SUSE HA administration: clustering, replication, PostgreSQL & SAP HANA environments</li>
+          <li>DevOps tooling: Docker, Kubernetes, Ansible — plus ELK observability stack</li>
+          <li>Python/Bash automation pipelines; OPS procedure documentation & improvement</li>
         </ul>
       </div>
-
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <h3 class="font-semibold">Intern — Sonatel Group (QoS)</h3>
-          <span class="text-sm text-slate-500 dark:text-slate-400">Apr 2021 – 7 months</span>
-        </div>
-        <ul class="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
-          <li data-i18n="exp.s1">Outil d’automatisation collecte/analyse QoS (parsing, stockage, visualisation).</li>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Apr 2021 — Nov 2021</div>
+        <div class="timeline-title">Intern — QoS Automation</div>
+        <div class="timeline-company">Sonatel Group · Dakar</div>
+        <ul class="timeline-bullets">
+          <li>Built an automated QoS data collection, parsing & visualization tool (Flask, Elasticsearch)</li>
         </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Projects -->
-  <section id="projects" class="max-w-6xl mx-auto px-4 py-10">
-    <div class="flex flex-wrap items-end justify-between gap-3">
-      <h2 class="text-xl font-semibold" data-i18n="projects.title">Projets</h2>
+<div class="divider"></div>
 
-      <div class="flex flex-wrap gap-2 text-sm">
-        <button class="projFilter px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
-                data-filter="all" data-i18n="projects.filterAll">Tous</button>
-        <button class="projFilter px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
-                data-filter="sysadmin">SysAdmin</button>
-        <button class="projFilter px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
-                data-filter="devops">DevOps</button>
-        <button class="projFilter px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
-                data-filter="fullstack">Full-Stack</button>
+<!-- PROJECTS -->
+<section id="projects" class="section-pad">
+  <div class="container">
+    <div class="section-label reveal">Work</div>
+    <h2 class="section-title reveal">Key<br><em>projects</em></h2>
+    <div class="projects-grid">
+
+      <!-- Featured -->
+      <div class="project-card featured">
+        <div class="project-body">
+          <div class="project-badge">★ Featured project</div>
+          <div class="project-num">01</div>
+          <div class="project-title">Inventory & Asset Platform</div>
+          <div class="project-desc">
+            Full-stack platform for telecom field operations. Web app (React) handles warehouse stock, outbound delivery orders, telecom site installations, returns, and site audits.
+            Mobile app (React Native) lets field teams scan QR codes for every operation — stock-in, stock-out, site installation, inventory audit.
+            Django REST backend with RBAC and full audit trail.
+          </div>
+          <div class="project-tags">
+            <span class="tag">React</span>
+            <span class="tag">React Native</span>
+            <span class="tag">Django REST</span>
+            <span class="tag">QR Scan</span>
+            <span class="tag">RBAC</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="project-visual">
+          <div class="qr-visual">
+            <span></span><span></span><span></span><span class="w"></span><span></span><span></span>
+            <span></span><span class="w"></span><span></span><span></span><span class="w"></span><span></span>
+            <span></span><span></span><span class="w"></span><span></span><span></span><span></span>
+            <span class="w"></span><span></span><span></span><span class="w"></span><span></span><span class="w"></span>
+            <span></span><span class="w"></span><span></span><span></span><span class="w"></span><span></span>
+            <span></span><span></span><span class="w"></span><span class="w"></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <div class="project-title">Cash Management & Reporting</div>
+        <div class="project-desc">Validation workflows, audit logs, accounting exports and real-time KPI dashboards for financial operations.</div>
+        <div class="project-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Sequelize</span>
+          <span class="tag">Reporting</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <div class="project-title">HR & Internal Tools</div>
+        <div class="project-desc">Internal HR platform with biometric attendance tracking via Hikvision ISAPI, Celery task queues, exports and approval workflows.</div>
+        <div class="project-tags">
+          <span class="tag">React</span>
+          <span class="tag">Django</span>
+          <span class="tag">Celery</span>
+          <span class="tag">Hikvision ISAPI</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">04</div>
+        <div class="project-title">SUSE HA & Ops</div>
+        <div class="project-desc">High availability Linux clustering, database replication, system hardening, and operational runbooks for mission-critical environments.</div>
+        <div class="project-tags">
+          <span class="tag">SUSE HA</span>
+          <span class="tag">Linux</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">SAP HANA</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">05</div>
+        <div class="project-title">QoS Analytics</div>
+        <div class="project-desc">Automated multi-format QoS data collection, Elasticsearch storage, and real-time visualization for telecom network quality monitoring.</div>
+        <div class="project-tags">
+          <span class="tag">Flask</span>
+          <span class="tag">Elasticsearch</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">06</div>
+        <div class="project-title">Network & Security Ops</div>
+        <div class="project-desc">VPN architecture, VLAN segmentation, firewall policy management, and network supervision best practices across multi-site infrastructure.</div>
+        <div class="project-tags">
+          <span class="tag">VPN</span>
+          <span class="tag">VLAN</span>
+          <span class="tag">Firewall</span>
+          <span class="tag">Monitoring</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="section-pad">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-text reveal">
+        <h2>Let's work<br><em>together</em></h2>
+        <p>Open to SysAdmin, DevOps, Support Engineer, or Full-Stack roles. Available for relocation.</p>
+        <div class="contact-links">
+          <a href="mailto:moustaphambaye7842@gmail.com" class="contact-link">
+            <div class="contact-link-icon">@</div>
+            <div>
+              <div class="contact-link-text">moustaphambaye7842@gmail.com</div>
+              <div class="contact-link-sub">Email · preferred</div>
+            </div>
+          </a>
+          <a href="tel:+221781669659" class="contact-link">
+            <div class="contact-link-icon">#</div>
+            <div>
+              <div class="contact-link-text">+221 781 669 659</div>
+              <div class="contact-link-sub">Phone / WhatsApp</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/moustapha-mbaye-908399245" target="_blank" class="contact-link">
+            <div class="contact-link-icon">in</div>
+            <div>
+              <div class="contact-link-text">moustapha-mbaye-908399245</div>
+              <div class="contact-link-sub">LinkedIn</div>
+            </div>
+          </a>
+          <a href="https://github.com/mombaye" target="_blank" class="contact-link">
+            <div class="contact-link-icon">gh</div>
+            <div>
+              <div class="contact-link-text">github.com/mombaye</div>
+              <div class="contact-link-sub">GitHub</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Your name"/>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com"/>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell me about the opportunity…"></textarea>
+        </div>
+        <button class="btn-submit" onclick="this.textContent='Message sent ✓'; this.style.background='#0F6E56';">
+          Send message →
+        </button>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="mt-5 grid md:grid-cols-3 gap-4">
-      <!-- Card -->
-      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
-               data-tags="fullstack,devops">
-        <h3 class="font-semibold" data-i18n="p.cash.title">Cash Management & Reporting</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.cash.desc">
-          Workflows validation, audit logs, exports comptables, dashboards & KPIs.
-        </p>
-        <div class="mt-3 flex flex-wrap gap-2 text-xs">
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Node.js</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Sequelize</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Reporting</span>
-        </div>
-        <div class="mt-4 flex gap-3 text-sm">
-          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.repo">Repo</a>
-          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.details">Détails</a>
-        </div>
-      </article>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    © 2025 <a href="#home">Moustapha Mbaye</a> · Dakar, Senegal
+  </div>
+  <div class="footer-socials">
+    <a href="https://github.com/mombaye" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/moustapha-mbaye-908399245" target="_blank">LinkedIn</a>
+    <a href="mailto:moustaphambaye7842@gmail.com">Email</a>
+  </div>
+</footer>
 
-      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
-               data-tags="fullstack,sysadmin">
-        <h3 class="font-semibold" data-i18n="p.inv.title">Inventory & Asset Platform</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.inv.desc">
-          Stock temps réel, mouvements, audit, QR/Barcode, exports, rôles & permissions.
-        </p>
-        <div class="mt-3 flex flex-wrap gap-2 text-xs">
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">React</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Django</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">RBAC</span>
-        </div>
-        <div class="mt-4 flex gap-3 text-sm">
-          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.repo">Repo</a>
-          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.demo">Démo</a>
-        </div>
-      </article>
+<script>
+// ── Hamburger ──
+const ham = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  ham.classList.remove('open');
+  navLinks.classList.remove('open');
+}));
 
-      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
-               data-tags="sysadmin,devops">
-        <h3 class="font-semibold" data-i18n="p.ha.title">SUSE HA & Ops</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.ha.desc">
-          Clustering, réplication, durcissement, procédures d’exploitation & continuité.
-        </p>
-        <div class="mt-3 flex flex-wrap gap-2 text-xs">
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">SUSE HA</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Linux</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Runbooks</span>
-        </div>
-        <div class="mt-4 flex gap-3 text-sm">
-          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.details">Détails</a>
-        </div>
-      </article>
-
-      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
-               data-tags="devops,fullstack">
-        <h3 class="font-semibold" data-i18n="p.qos.title">QoS Analytics</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.qos.desc">
-          Collecte, parsing multi-formats, stockage & visualisation (observabilité).
-        </p>
-        <div class="mt-3 flex flex-wrap gap-2 text-xs">
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Flask/Django</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Elasticsearch</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Automation</span>
-        </div>
-        <div class="mt-4 flex gap-3 text-sm">
-          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.repo">Repo</a>
-        </div>
-      </article>
-
-      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
-               data-tags="fullstack">
-        <h3 class="font-semibold" data-i18n="p.hr.title">HR / Internal Tools</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.hr.desc">
-          Plateformes internes (RH, workflows, exports) pour gagner du temps et fiabiliser.
-        </p>
-        <div class="mt-3 flex flex-wrap gap-2 text-xs">
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">React</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Django</span>
-        </div>
-        <div class="mt-4 flex gap-3 text-sm">
-          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.details">Détails</a>
-        </div>
-      </article>
-
-      <article class="projCard rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6"
-               data-tags="devops,sysadmin">
-        <h3 class="font-semibold" data-i18n="p.sec.title">Network & Security Ops</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="p.sec.desc">
-          VPN, segmentation VLAN, firewall policies, supervision & bonnes pratiques.
-        </p>
-        <div class="mt-3 flex flex-wrap gap-2 text-xs">
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">VPN</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">VLAN</span>
-          <span class="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-900">Firewall</span>
-        </div>
-        <div class="mt-4 flex gap-3 text-sm">
-          <a class="underline text-slate-700 dark:text-slate-200" href="#" data-i18n="projects.details">Détails</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="max-w-6xl mx-auto px-4 py-12">
-    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
-      <h2 class="text-xl font-semibold" data-i18n="contact.title">Contact</h2>
-      <p class="mt-2 text-slate-600 dark:text-slate-300" data-i18n="contact.text">
-        Discutons d’un rôle SysAdmin / DevOps / Support Engineer ou Full-Stack.
-      </p>
-
-      <div class="mt-4 flex flex-wrap gap-3">
-        <a class="px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
-           href="mailto:moustaphambaye7842@gmail.com" data-i18n="contact.emailBtn">Email</a>
-
-        <a class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
-           href="https://linkedin.com/in/moustapha-mbaye-908399245" target="_blank">LinkedIn</a>
-
-        <a class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900"
-           href="https://github.com/mombaye" target="_blank">GitHub</a>
-      </div>
-    </div>
-
-    <footer class="py-8 text-center text-xs text-slate-500 dark:text-slate-400">
-      © <span id="year"></span> Moustapha Mbaye — Built with Tailwind
-    </footer>
-  </section>
-
-  <script>
-    // year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // mobile menu
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-
-    // theme toggle (persist)
-    const themeBtn = document.getElementById('themeBtn');
-    const root = document.documentElement;
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark') root.classList.add('dark');
-    themeBtn?.addEventListener('click', () => {
-      root.classList.toggle('dark');
-      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
-    });
-
-    // i18n
-    const i18n = {
-      fr: {
-        "nav.about":"À propos","nav.skills":"Compétences","nav.exp":"Expérience","nav.projects":"Projets","nav.contact":"Contact",
-        "hero.subtitle":"Dakar • Ouvert à la relocation",
-        "hero.title1":"SysAdmin","hero.title2":"DevOps","hero.title3":"Full-Stack",
-        "hero.tagline":"Support • Infrastructure • Automatisation • Delivery",
-        "hero.desc":"IT Manager & ingénieur systèmes/réseaux avec expérience Linux (SUSE), haute disponibilité, DevOps (Docker/K8s/Ansible) et développement d’outils internes (Node.js, Django, React). Objectif : une IT simple, fiable et sécurisée.",
-        "hero.btnProjects":"Voir mes projets","hero.btnCV":"Télécharger mon CV","hero.btnContact":"Me contacter",
-        "card.title":"Infos rapides","card.email":"Email","card.phone":"Téléphone","card.focus1Label":"Focus","card.focus1":"Support & Endpoint","card.focus2Label":"Focus","card.focus2":"Infra & Automation",
-        "about.title":"À propos","about.text":"Je construis et maintiens des environnements IT robustes : support utilisateurs, sécurisation réseau, serveurs Linux/Windows, haute disponibilité, observabilité (ELK) et automatisation (Python/Bash). Je développe aussi des outils internes (API, dashboards) pour améliorer la productivité.",
-        "skills.title":"Compétences","skills.sysadmin":"SysAdmin","skills.devops":"DevOps","skills.fullstack":"Full-Stack",
-        "exp.title":"Expérience",
-        "exp.c1":"Support utilisateurs, gestion du parc (laptops, mobiles, meeting rooms/IT equipment).",
-        "exp.c2":"Sécurisation & exploitation (VPN, firewall, segmentation, supervision).",
-        "exp.c3":"Digitalisation : outils internes, reporting, automatisations.",
-        "exp.a1":"SUSE HA, clustering/replication, DB (PostgreSQL, SAP HANA).",
-        "exp.a2":"Tooling DevOps (Docker/K8s/Ansible) + observabilité (ELK).",
-        "exp.a3":"Automatisation Python/Bash, amélioration des procédures.",
-        "exp.s1":"Outil d’automatisation collecte/analyse QoS (parsing, stockage, visualisation).",
-        "projects.title":"Projets","projects.filterAll":"Tous","projects.repo":"Repo","projects.demo":"Démo","projects.details":"Détails",
-        "p.cash.title":"Cash Management & Reporting","p.cash.desc":"Workflows validation, audit logs, exports comptables, dashboards & KPIs.",
-        "p.inv.title":"Inventory & Asset Platform","p.inv.desc":"Stock temps réel, mouvements, audit, QR/Barcode, exports, rôles & permissions.",
-        "p.ha.title":"SUSE HA & Ops","p.ha.desc":"Clustering, réplication, durcissement, procédures d’exploitation & continuité.",
-        "p.qos.title":"QoS Analytics","p.qos.desc":"Collecte, parsing multi-formats, stockage & visualisation (observabilité).",
-        "p.hr.title":"HR / Internal Tools","p.hr.desc":"Plateformes internes (RH, workflows, exports) pour gagner du temps et fiabiliser.",
-        "p.sec.title":"Network & Security Ops","p.sec.desc":"VPN, segmentation VLAN, firewall policies, supervision & bonnes pratiques.",
-        "contact.title":"Contact","contact.text":"Discutons d’un rôle SysAdmin / DevOps / Support Engineer ou Full-Stack.","contact.emailBtn":"Email"
-      },
-      en: {
-        "nav.about":"About","nav.skills":"Skills","nav.exp":"Experience","nav.projects":"Projects","nav.contact":"Contact",
-        "hero.subtitle":"Dakar • Open to relocation (Sweden)",
-        "hero.title1":"SysAdmin","hero.title2":"DevOps","hero.title3":"Full-Stack",
-        "hero.tagline":"Support • Infrastructure • Automation • Delivery",
-        "hero.desc":"IT Manager and Systems/Network Engineer with Linux (SUSE), High Availability, DevOps (Docker/K8s/Ansible) and internal tools development (Node.js, Django, React). Goal: simple, reliable and secure IT.",
-        "hero.btnProjects":"View projects","hero.btnCV":"Download CV","hero.btnContact":"Contact me",
-        "card.title":"Quick info","card.email":"Email","card.phone":"Phone","card.focus1Label":"Focus","card.focus1":"Support & Endpoint","card.focus2Label":"Focus","card.focus2":"Infra & Automation",
-        "about.title":"About","about.text":"I build and operate robust IT environments: end-user support, network security, Linux/Windows servers, high availability, observability (ELK) and automation (Python/Bash). I also develop internal tools (APIs, dashboards) to boost productivity.",
-        "skills.title":"Skills","skills.sysadmin":"SysAdmin","skills.devops":"DevOps","skills.fullstack":"Full-Stack",
-        "exp.title":"Experience",
-        "exp.c1":"End-user support and device fleet management (laptops, mobiles, meeting rooms/IT equipment).",
-        "exp.c2":"Secure operations (VPN, firewall, segmentation, monitoring).",
-        "exp.c3":"Digitalization: internal tools, reporting, automation.",
-        "exp.a1":"SUSE HA, clustering/replication, databases (PostgreSQL, SAP HANA).",
-        "exp.a2":"DevOps tooling (Docker/K8s/Ansible) + observability (ELK).",
-        "exp.a3":"Python/Bash automation and improved operational procedures.",
-        "exp.s1":"Automated QoS data collection/analysis tool (parsing, storage, visualization).",
-        "projects.title":"Projects","projects.filterAll":"All","projects.repo":"Repo","projects.demo":"Demo","projects.details":"Details",
-        "p.cash.title":"Cash Management & Reporting","p.cash.desc":"Approval workflows, audit logs, accounting exports, dashboards & KPIs.",
-        "p.inv.title":"Inventory & Asset Platform","p.inv.desc":"Real-time stock, movements, audit trail, QR/Barcode, exports, roles & permissions.",
-        "p.ha.title":"SUSE HA & Ops","p.ha.desc":"Clustering, replication, hardening, operational runbooks & continuity.",
-        "p.qos.title":"QoS Analytics","p.qos.desc":"Collection, multi-format parsing, storage & visualization (observability).",
-        "p.hr.title":"HR / Internal Tools","p.hr.desc":"Internal platforms (HR, workflows, exports) to save time and improve reliability.",
-        "p.sec.title":"Network & Security Ops","p.sec.desc":"VPN, VLAN segmentation, firewall policies, monitoring & best practices.",
-        "contact.title":"Contact","contact.text":"Let’s talk about SysAdmin / DevOps / Support Engineer or Full-Stack roles.","contact.emailBtn":"Email"
-      }
-    };
-
-    function applyLang(lang) {
-      localStorage.setItem('lang', lang);
-      document.documentElement.lang = lang === 'fr' ? 'fr' : 'en';
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (key && i18n[lang][key]) el.textContent = i18n[lang][key];
-      });
-      // active state
-      document.getElementById('langFR').classList.toggle('bg-slate-100', lang === 'fr');
-      document.getElementById('langEN').classList.toggle('bg-slate-100', lang === 'en');
-      document.getElementById('langFR').classList.toggle('dark:bg-slate-900', lang === 'fr');
-      document.getElementById('langEN').classList.toggle('dark:bg-slate-900', lang === 'en');
-      // CV link per language
-      const cvLink = document.getElementById('cvLink');
-      if (cvLink) cvLink.setAttribute('href', lang === 'fr' ? 'cv_fr.pdf' : 'cv_en.pdf');
+// ── Scroll reveal ──
+const revealEls = document.querySelectorAll('.reveal, .timeline-item, .project-card');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      io.unobserve(e.target);
     }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
 
-    const storedLang = localStorage.getItem('lang') || 'fr';
-    applyLang(storedLang);
+// ── Skill bars on scroll ──
+const bars = document.querySelectorAll('.skill-fill');
+const barIo = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = e.target.getAttribute('data-w');
+      e.target.style.transform = `scaleX(${w})`;
+      e.target.classList.add('animate');
+      barIo.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+bars.forEach(b => barIo.observe(b));
 
-    document.getElementById('langFR').addEventListener('click', () => applyLang('fr'));
-    document.getElementById('langEN').addEventListener('click', () => applyLang('en'));
+// ── Parallax glow blobs ──
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX / window.innerWidth;
+  const y = e.clientY / window.innerHeight;
+  document.getElementById('blob1').style.transform = `translate(${x*40}px, ${y*40}px)`;
+  document.getElementById('blob2').style.transform = `translate(${-x*30}px, ${-y*30}px)`;
+});
 
-    // project filter
-    const filters = document.querySelectorAll('.projFilter');
-    const cards = document.querySelectorAll('.projCard');
-
-    function setFilter(filter) {
-      filters.forEach(b => b.classList.remove('bg-slate-100','dark:bg-slate-900'));
-      filters.forEach(b => { if (b.dataset.filter === filter) b.classList.add('bg-slate-100','dark:bg-slate-900'); });
-
-      cards.forEach(card => {
-        const tags = (card.getAttribute('data-tags') || '').split(',').map(s => s.trim());
-        const show = filter === 'all' || tags.includes(filter);
-        card.classList.toggle('hidden', !show);
+// ── Active nav highlight ──
+const sections = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a');
+const navIo = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navAs.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + e.target.id ? 'var(--teal3)' : '';
       });
     }
-
-    filters.forEach(btn => btn.addEventListener('click', () => setFilter(btn.dataset.filter)));
-    setFilter('all');
-  </script>
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => navIo.observe(s));
+</script>
 </body>
 </html>
